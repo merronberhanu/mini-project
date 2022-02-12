@@ -1,6 +1,12 @@
+import csv
+import cafe_order
+
+
+
+        
 #Fuction to read file 
 def read_from_products():  
-  
+
  with open('products.txt','r') as prod:
     #products = prod.readlines()
     products = sorted(prod.readlines())
@@ -20,6 +26,7 @@ def add_new_product():
  new_product = input("\n    Enter a new product: ")
  file = open("products.txt", "a")
  file.write(new_product + "\n") 
+ 
 #  print()
  print("    " + new_product + " " "has been added.\n")
 
@@ -50,7 +57,7 @@ def update_product():
         print( "The new menu is:")
         print(', '.join(products_list))
         # print()
-    menu_options()
+        #product_menu_options()
 
 
 def read_from_couriers():
@@ -62,13 +69,23 @@ def read_from_couriers():
             print(product.replace('\n',''))
             print()
 
+def display_courier():
+    with open('couriers.txt', 'r+') as courier:
+        courier_list = courier.readlines()
+
+    #print("Here are list of products with their corresponding numbers:\n" )
+        for courier in courier_list:
+            index = courier_list.index(courier)
+            print(f'{index} - {courier}')
+    
+
 def add_new_courier(): 
 
- add_courier = input("\n    Enter a new Courier: ")
- file = open('couriers.txt', "a")
- file.write(add_courier + "\n") 
-#  print()
- print("    " + add_courier + " " "has been added.\n")
+    add_courier = input("\n    Enter a new Courier: ")
+    file = open('couriers.txt', "a")
+    file.write(add_courier + "\n") 
+    #  print()
+    print("    " + add_courier + " " "has been added.\n")
         
 # def again():
 #     list_again = input('''
@@ -83,86 +100,13 @@ def add_new_courier():
 #         again()
 #         menu_options()
 
-def menu_options():
-    print()
-    options = input("""   PRODUCT MENU
-    -----------------------------------
-    1 -> Display Products 
-    2 --> Add New Product 
-    3 --> Update Existing Product
-    4 --> Delete Product
-    0 --> Return to Main Menu
-    
-    Please select an option """)
-    print()
-    
-    if int(options) ==1:
-        print("Here is a list of all products")
-        print('______________________________')
-        read_from_products()
-        again()
+
+def read_from_customer_file():
+        with open("customer_data.csv","r") as file:
+            reader = csv.DictReader(file)
+            order_list = list(reader)
+                
+        return order_list
+
         
-    elif int(options) ==2:
-        add_new_product()
-        menu_options()
 
-    # elif int(options) ==3:
-    #     print("Here are list of products with their corresponding numbers:\n" )
-    #     for products in file:
-    #         products.
-        
-        for item in range(len(read_from_products())):
-            #print(item)
-            print(item, read_from_products()[item])
-            print()
-            
-            
-        user_input = int(input("select the product number you would like to update:\n"))
-        update_input =input("What is the new product you would like to change to?\n")
-        
-        user_input = update_input
-        print()
-        print( "The new menu is:")
-        print()
-        print(', '.join(user_input))
-        print()
-        menu_options()
-
-    # elif int(options) ==4:
-    #     print("Here are list of products with their corresponding numbers:\n" )
-    #     for item in range(len(product_menu)):
-    #         #print(item)
-    #         print(item, product_menu[item])
-    #         print()
-
-    #     delete_prod = int(input("select the product number you would like to Delete:\n"))
-    #     del product_menu[delete_prod]
-    #     print(', ' .join(product_menu))
-    #     menu_options()
-
-    elif int(options)==0:
-        MainMenu()
-    else:
-        print('You have not chosen a valid option, please run the program again.')
-        #again()
-        print()  
-
-def MainMenu():
-  
-  print("\nMENU:")
-  print("*****************")
-  print("1. Display Product Menu")
-  print("2. Display Couriers Menu")
-  print("0 - Exit App\n")
-  
-
-  choice = input("Make selection from the above list :""")
-  print()
-  if int(choice) ==1:
-    menu_options()
-        
-  elif int(choice) == 0:
-        print()
-        print("Exiting, thank you and goodbye")
-        print()
-        exit()   
